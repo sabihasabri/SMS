@@ -2,7 +2,7 @@
 
 <ul> 
 {% for choice in question.choice_set.all %}
-      <li> {{ choice.choice_text }} -- {{ choice.votes }} vote {{ choice.votes|pluralize }} </li>
+      <li> {{ choice.choice_text }} >> {{ choice.votes }} vote{{ choice.votes|pluralize }} </li>
 {% endfor %}
 </ul>
 
@@ -10,3 +10,70 @@
 
 
 
+<canvas id="myChart" width= 500 height= 500 ></canvas>
+<script src = "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script> 
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> </link> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script>  
+      var data=[];
+      // Experiments
+      labels = [] 
+      data = []
+      console.log('{% for choice in question.choice_set.all %}')
+      console.log('{{ choice.choice_text }}')
+      console.log('{{ choice.votes }}')
+      labels.push('{{choice.choice_text}}')
+      data.push('{{ choice.votes }}')
+      console.log('{% endfor %}')
+     console.log(labels)
+     console.log(data)
+
+
+
+      // $.each('{{question.choice_set.all}}',function(i,v){
+      //       console.log(i)
+      // })
+      var ctx = document.getElementById('myChart').getContext('2d');
+      var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: { 
+            labels: labels, 
+            datasets: [ {
+                  label:'Votes', 
+                  /*this is where we need to send data*/
+                  data: data, 
+                  backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                  ], 
+                  borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                  ], 
+                 /* borderWidth: 1 */
+            }]
+      }, 
+      options: {
+            title: {
+                  display: true, 
+                  text: 'Results of your survey'
+            }, 
+            responsive: false,
+            scales: {
+                  yAxes: [{
+                        ticks: { 
+                              beginAtZero: true
+                        }
+                  }]
+            }
+      } 
+});   
+</script>

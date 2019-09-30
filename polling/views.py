@@ -4,6 +4,8 @@ from django.template import loader
 from django.views import generic 
 from django.urls import reverse
 from .models import Choice, Question 
+import json 
+from django.db.models import Count, Q 
 
 class IndexView (generic.ListView): 
     template_name = 'polling/index.html'
@@ -43,6 +45,7 @@ def vote (request, question_id):
     except (KeyError, Choice.DoesNotExist): 
         return render (request, 'polling/detail.html', {'question': question, 'error_message': "You didn't select a choice.",})
     # returns an HttpResponseREdirect after succesful dealing with post data. THis prevents data from being posted twice if a user hits the back button. 
+   
     else: 
         selected_choice.votes +=1 
         selected_choice.save()
