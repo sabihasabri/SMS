@@ -29,10 +29,6 @@
      console.log(data)
 
 
-
-      // $.each('{{question.choice_set.all}}',function(i,v){
-      //       console.log(i)
-      // })
       var ctx = document.getElementById('myChart').getContext('2d');
       var myChart = new Chart(ctx, {
       type: 'bar',
@@ -40,7 +36,6 @@
             labels: labels, 
             datasets: [ {
                   label:'Votes', 
-                  /*this is where we need to send data*/
                   data: data, 
                   backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
